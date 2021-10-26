@@ -1,9 +1,11 @@
 package com.example.firebaselearning;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,12 +17,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +35,8 @@ public class AdapterClassForPost extends RecyclerView.Adapter<AdapterClassForPos
 
     Context context;
     ArrayList<PostingModel>list;
+    private DatabaseReference postingDatabase;
+    AlertDialog.Builder builder;
 
     private TextView tvOnceTime, tvOnceDate, tvRepeatingTime;
     private ImageButton ibOnceTime, ibOnceDate, ibRepeatingTime;
@@ -39,9 +47,13 @@ public class AdapterClassForPost extends RecyclerView.Adapter<AdapterClassForPos
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int mHourRepeat, mMinuteRepeat;
 
-    public AdapterClassForPost(Context context, ArrayList<PostingModel> list) {
+    private String OwnerID, Title;
+
+    public AdapterClassForPost(Context context, ArrayList<PostingModel> list, String OwnerID, String Title) {
         this.context = context;
         this.list = list;
+        this.OwnerID = OwnerID;
+        this.Title = Title;
     }
 
     @NonNull
@@ -66,15 +78,121 @@ public class AdapterClassForPost extends RecyclerView.Adapter<AdapterClassForPos
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
+
+                        builder = new AlertDialog.Builder(context);
+
                         switch (menuItem.getItemId()) {
                             case R.id.editPostID:
+
+                                switch(Title)
+                                {
+                                    case "Class Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInClassInfo");
+
+                                        break;
+                                    case "Exam Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInExamInfo");
+
+                                        break;
+                                    case "Assignment Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInAssignmentInfo");
+
+                                        break;
+                                    case "Presentation Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInPresentationInfo");
+
+                                        break;
+                                }
+
                                 Toast.makeText(context, "Edit your Post", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.deletePostID:
-                                Toast.makeText(context, "Delete your Post", Toast.LENGTH_SHORT).show();
+
+                                switch(Title)
+                                {
+                                    case "Class Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInClassInfo");
+                                        builder.setTitle("Alert!!")
+                                                .setMessage("Do you want to delate this post")
+                                                .setCancelable(true)
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                                        dialogInterface.dismiss();
+                                                    }
+                                                })
+                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        dialogInterface.cancel();
+                                                    }
+                                                })
+                                                .show();
+                                        break;
+                                    case "Exam Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInExamInfo");
+                                        builder.setTitle("Alert!!")
+                                                .setMessage("Do you want to delate this post")
+                                                .setCancelable(true)
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                                        dialogInterface.dismiss();
+                                                    }
+                                                })
+                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        dialogInterface.cancel();
+                                                    }
+                                                })
+                                                .show();
+                                        break;
+                                    case "Assignment Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInAssignmentInfo");
+                                        builder.setTitle("Alert!!")
+                                                .setMessage("Do you want to delate this post")
+                                                .setCancelable(true)
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                                        dialogInterface.dismiss();
+                                                    }
+                                                })
+                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        dialogInterface.cancel();
+                                                    }
+                                                })
+                                                .show();
+                                        break;
+                                    case "Presentation Info":
+                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInPresentationInfo");
+                                        builder.setTitle("Alert!!")
+                                                .setMessage("Do you want to delate this post")
+                                                .setCancelable(true)
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                                        dialogInterface.dismiss();
+                                                    }
+                                                })
+                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        dialogInterface.cancel();
+                                                    }
+                                                })
+                                                .show();
+                                        break;
+                                }
                                 break;
                             case R.id.setAlarmID:
-                                Toast.makeText(context, "Set an Alarm", Toast.LENGTH_SHORT).show();
                                 setAnAlarm();
                                 break;
                         }

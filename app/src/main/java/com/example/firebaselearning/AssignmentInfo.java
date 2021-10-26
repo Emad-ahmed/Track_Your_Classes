@@ -91,7 +91,9 @@ public class AssignmentInfo extends AppCompatActivity {
                     postEditText.requestFocus();
                     return;
                 }
-                postingDatabase.child(OwnerID).child(postingDatabase.push().getKey()).child("Post").setValue(post);
+                String ID = postingDatabase.push().getKey();
+                postingDatabase.child(OwnerID).child(ID).child("Post").setValue(post);
+                postingDatabase.child(OwnerID).child(ID).child("ID").setValue(ID);
                 postEditText.setText("");
             }
         });
@@ -103,7 +105,7 @@ public class AssignmentInfo extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         list = new ArrayList<>();
-        adapterClassForPost = new AdapterClassForPost(this, list);
+        adapterClassForPost = new AdapterClassForPost(this, list, OwnerID, Title);
         recyclerView.setAdapter(adapterClassForPost);
 
         postingDatabase.child(OwnerID).addValueEventListener(new ValueEventListener() {
