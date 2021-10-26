@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+
+        android:background="@drawable/img9"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilepic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+
+            android:src="@drawable/ic_person_24" />
+
+        <TextView
+            android:id="@+id/FullNameProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profilepic"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:text="Misbah Uddin Tareq"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/SectionProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/FullNameProfile"
+            android:layout_marginLeft="16dp"
+            android:text="C"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <View
+            style="@style/line"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/SectionProfile" />
+
+    </LinearLayout>
+
+</RelativeLayout>

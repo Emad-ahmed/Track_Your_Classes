@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ClassInfoID"
+        android:title="Class Info"
+        android:icon="@drawable/ic_baseline_class"/>
+    <item
+        android:id="@+id/ExamInfoID"
+        android:title="Exam"
+        android:icon="@drawable/exam_info"/>
+    <item
+        android:id="@+id/AssignmentInfoID"
+        android:title="Assignment"
+        android:icon="@drawable/assignment_info"/>
+    <item
+        android:id="@+id/PresentationInfoID"
+        android:title="Presentation"
+        android:icon="@drawable/presentation_info"/>
+
+</menu>

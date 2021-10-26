@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/editPostID"
+        android:title="Edit Post"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/deletePostID"
+        android:title="Delete Post"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/setAlarmID"
+        android:title="Set Alarm"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+
+</menu>

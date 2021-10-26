@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:text="Create Class"
+            android:textColor="#0099FF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_border"
+            android:drawableStart="@drawable/title"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:hint="Class Title"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:padding="16dp"
+            android:id="@+id/nameCreateDialogId"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_border"
+            android:drawableStart="@drawable/ic_baseline_subject_24"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:hint="Subject"
+            android:inputType="textPersonName"
+            android:padding="16dp"
+            android:imeOptions="actionNext"
+            android:id="@+id/subjectCreateDialogId"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_border"
+            android:drawableStart="@drawable/section"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:hint="Section"
+            android:inputType="textPersonName"
+            android:padding="16dp"
+            android:imeOptions="actionNext"
+            android:id="@+id/sectionCreateDialogId"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_border"
+            android:drawableStart="@drawable/ic_baseline_room_24"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:hint="Room"
+            android:inputType="textPersonName"
+            android:padding="16dp"
+            android:imeOptions="actionNext"
+            android:id="@+id/roomCreateDialogId"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/color_primary"
+            android:text="Create"
+            android:layout_gravity="center"
+            android:id="@+id/submitbtnCreateDialogId"/>
+
+    </LinearLayout>
+</LinearLayout>
