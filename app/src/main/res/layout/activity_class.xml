@@ -26,7 +26,7 @@
         android:layout_marginTop="2dp"
         android:text="Section"
         android:textColor="#fff"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/tvOwnerName"
@@ -37,7 +37,19 @@
         android:layout_marginTop="2dp"
         android:text="Owner Name"
         android:textColor="#fff"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvClassCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvOwnerName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:text="Class Code"
+        android:textColor="#fff"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <GridLayout

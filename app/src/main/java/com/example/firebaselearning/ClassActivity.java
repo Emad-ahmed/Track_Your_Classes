@@ -20,11 +20,12 @@ import com.google.android.material.navigation.NavigationView;
 
 public class ClassActivity extends AppCompatActivity {
 
-    private TextView className, section, ownerName;
+    private TextView className, section, ownerName, classCode;
     private String OwnerID = "OwnerID not set";
     private String OwnerName = "OwnerName not set";
     private String Subject = "Subject not set";
     private String Section = "Section not set";
+    private String Code = "Code not set";
 
     private GridLayout girdLayout;
 
@@ -33,11 +34,10 @@ public class ClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
 
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerID, new ClassInfoFragment()).commit();
-
         className = findViewById(R.id.tvClassName);
         section = findViewById(R.id.tvSection);
         ownerName = findViewById(R.id.tvOwnerName);
+        classCode = findViewById(R.id.tvClassCode);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -45,7 +45,10 @@ public class ClassActivity extends AppCompatActivity {
             Section = extras.getString("Section");
             OwnerName = extras.getString("OwnerName");
             OwnerID = extras.getString("OwnerID");
+            Code = extras.getString("Code");
         }
+
+        classCode.setText("Class Code : "+Code);
         OwnerID += Subject;
         className.setText(Subject);
         section.setText(Section);
