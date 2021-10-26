@@ -31,9 +31,9 @@ tools:context=".ProfileActivity">
             android:id="@+id/swipeRefreshLayoutID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/img10"
             android:layout_below="@id/AppBar"
-            android:layout_marginTop="0dp">
+            android:layout_marginTop="0dp"
+            android:background="@drawable/img10">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewID"
@@ -49,16 +49,15 @@ tools:context=".ProfileActivity">
             android:id="@+id/floatingactionBtnID"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="55dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            app:rippleColor="@color/purple_200"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/color_primary"
+            android:background="@drawable/float1"
             android:src="@drawable/ic_add"
-            />
+            app:rippleColor="@color/purple_200" />
 
     </RelativeLayout>
 
