@@ -27,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,114 +85,10 @@ public class AdapterClassForPost extends RecyclerView.Adapter<AdapterClassForPos
 
                         switch (menuItem.getItemId()) {
                             case R.id.editPostID:
-
-                                switch(Title)
-                                {
-                                    case "Class Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInClassInfo");
-
-                                        break;
-                                    case "Exam Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInExamInfo");
-
-                                        break;
-                                    case "Assignment Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInAssignmentInfo");
-
-                                        break;
-                                    case "Presentation Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInPresentationInfo");
-
-                                        break;
-                                }
-
-                                Toast.makeText(context, "Edit your Post", Toast.LENGTH_SHORT).show();
+                                editPost(postingModel);
                                 break;
                             case R.id.deletePostID:
-
-                                switch(Title)
-                                {
-                                    case "Class Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInClassInfo");
-                                        builder.setTitle("Alert!!")
-                                                .setMessage("Do you want to delate this post")
-                                                .setCancelable(true)
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
-                                                        dialogInterface.dismiss();
-                                                    }
-                                                })
-                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        dialogInterface.cancel();
-                                                    }
-                                                })
-                                                .show();
-                                        break;
-                                    case "Exam Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInExamInfo");
-                                        builder.setTitle("Alert!!")
-                                                .setMessage("Do you want to delate this post")
-                                                .setCancelable(true)
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
-                                                        dialogInterface.dismiss();
-                                                    }
-                                                })
-                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        dialogInterface.cancel();
-                                                    }
-                                                })
-                                                .show();
-                                        break;
-                                    case "Assignment Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInAssignmentInfo");
-                                        builder.setTitle("Alert!!")
-                                                .setMessage("Do you want to delate this post")
-                                                .setCancelable(true)
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
-                                                        dialogInterface.dismiss();
-                                                    }
-                                                })
-                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        dialogInterface.cancel();
-                                                    }
-                                                })
-                                                .show();
-                                        break;
-                                    case "Presentation Info":
-                                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInPresentationInfo");
-                                        builder.setTitle("Alert!!")
-                                                .setMessage("Do you want to delate this post")
-                                                .setCancelable(true)
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
-                                                        dialogInterface.dismiss();
-                                                    }
-                                                })
-                                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        dialogInterface.cancel();
-                                                    }
-                                                })
-                                                .show();
-                                        break;
-                                }
+                                deletePost(postingModel);
                                 break;
                             case R.id.setAlarmID:
                                 setAnAlarm();
@@ -219,6 +117,149 @@ public class AdapterClassForPost extends RecyclerView.Adapter<AdapterClassForPos
 
             post = itemView.findViewById(R.id.PostCardID);
             moreBtn = itemView.findViewById(R.id.MoreID);
+        }
+    }
+
+    // edit post
+    public void editPost(PostingModel postingModel) {
+        final DialogPlus dialogPlus = DialogPlus.newDialog(context)
+                .setContentHolder(new ViewHolder(R.layout.dialog_for_edit_post))
+                .setExpanded(true, 1100)
+                .create();
+
+        View myView = dialogPlus.getHolderView();
+        final EditText postEt = myView.findViewById(R.id.postETiD);
+        final Button update = myView.findViewById(R.id.updateBtnID);
+
+        postEt.setText(postingModel.getPost());
+        dialogPlus.show();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String post = postEt.getText().toString().trim();
+                if(post.isEmpty()) {
+                    postEt.setError("Post Field is required");
+                    postEt.requestFocus();
+                    return;
+                }
+
+                switch(Title)
+                {
+                    case "Class Info":
+                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInClassInfo");
+                        postingDatabase.child(OwnerID).child(postingModel.getID()).child("Post").setValue(post);
+                        dialogPlus.dismiss();
+                        break;
+
+                    case "Exam Info":
+                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInExamInfo");
+                        postingDatabase.child(OwnerID).child(postingModel.getID()).child("Post").setValue(post);
+                        dialogPlus.dismiss();
+                        break;
+
+                    case "Assignment Info":
+                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInAssignmentInfo");
+                        postingDatabase.child(OwnerID).child(postingModel.getID()).child("Post").setValue(post);
+                        dialogPlus.dismiss();
+                        break;
+
+                    case "Presentation Info":
+                        postingDatabase = FirebaseDatabase.getInstance().getReference("PostInPresentationInfo");
+                        postingDatabase.child(OwnerID).child(postingModel.getID()).child("Post").setValue(post);
+                        dialogPlus.dismiss();
+                        break;
+                }
+
+                postEt.setText("");
+            }
+        });
+    }
+
+    // delete Post
+    public void deletePost(PostingModel postingModel) {
+        switch(Title)
+        {
+            case "Class Info":
+                postingDatabase = FirebaseDatabase.getInstance().getReference("PostInClassInfo");
+                builder.setTitle("Alert!!")
+                        .setMessage("Do you want to delate this post")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .show();
+                break;
+            case "Exam Info":
+                postingDatabase = FirebaseDatabase.getInstance().getReference("PostInExamInfo");
+                builder.setTitle("Alert!!")
+                        .setMessage("Do you want to delate this post")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .show();
+                break;
+            case "Assignment Info":
+                postingDatabase = FirebaseDatabase.getInstance().getReference("PostInAssignmentInfo");
+                builder.setTitle("Alert!!")
+                        .setMessage("Do you want to delate this post")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .show();
+                break;
+            case "Presentation Info":
+                postingDatabase = FirebaseDatabase.getInstance().getReference("PostInPresentationInfo");
+                builder.setTitle("Alert!!")
+                        .setMessage("Do you want to delate this post")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                postingDatabase.child(OwnerID).child(postingModel.getID()).removeValue();
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .show();
+                break;
         }
     }
 
